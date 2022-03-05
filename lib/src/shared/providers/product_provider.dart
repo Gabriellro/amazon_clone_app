@@ -30,17 +30,21 @@ class ProductProvider with ChangeNotifier {
 
   Future<void> loadProducts() async {
     _items.clear();
+
     final res = await http.get(Uri.parse('${Constants.productBaseUrl}.json'));
+
     if (res.body == 'null') return;
+
     Map<String, dynamic> data = jsonDecode(res.body);
-    data.forEach((key, value) {
+    data.forEach((productId, productData) {
       _items.add(
         ProductModel(
-          id: key,
-          name: value['name'],
-          description: value['description'],
-          price: value['price'],
-          imageUrl: value['imageUrl'],
+          id: productId,
+          name: productData['name'],
+          description: productData['description'],
+          price: productData['price'],
+          imageUrl: productData['imageUrl'],
+          isFavorite: productData['isFavorite'],
         ),
       );
     });
