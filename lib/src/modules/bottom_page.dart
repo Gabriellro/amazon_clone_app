@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../shared/theme/app_colors.dart';
 
 class BottomPage extends StatefulWidget {
-  static String routeName = "/";
+  static String routeName = "/BottomPage";
   const BottomPage({Key? key}) : super(key: key);
 
   @override

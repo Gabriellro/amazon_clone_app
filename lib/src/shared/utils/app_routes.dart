@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../modules/_export_modules.dart';
 
 final Map<String, WidgetBuilder> routes = {
+  AuthPage.routeName: (_) => const AuthPage(),
   BottomPage.routeName: (_) => const BottomPage(),
   HomePage.routeName: (_) => const HomePage(),
   ProductDatailPage.routeName: (_) => const ProductDatailPage(),
