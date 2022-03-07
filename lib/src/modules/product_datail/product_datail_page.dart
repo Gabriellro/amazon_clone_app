@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared/models/_export_models.dart';
-import '../../shared/providers/cart_provider.dart';
+import '../../shared/providers/_export_providers.dart';
 import '../../shared/theme/theme.dart';
 
 class ProductDatailPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
         ModalRoute.of(context)!.settings.arguments as ProductModel;
 
     final cart = Provider.of<CartProvider>(context);
-
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, 56),
@@ -181,7 +181,9 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                                   ? Icons.favorite_rounded
                                   : Icons.favorite_border_rounded,
                             ),
-                            onPressed: () => productModel.updateFavorite(),
+                            onPressed: () => productModel.updateFavorite(
+                              authProvider.token ?? '',
+                            ),
                             color: Theme.of(context).primaryColor,
                           ),
                           Positioned(
