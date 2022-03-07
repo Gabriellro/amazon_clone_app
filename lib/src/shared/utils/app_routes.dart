@@ -1,8 +1,10 @@
+import 'package:amazon_clone_app/src/modules/is_auth_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../modules/_export_modules.dart';
 
 final Map<String, WidgetBuilder> routes = {
+  IsAuthPage.routeName: (_) => const IsAuthPage(),
   AuthPage.routeName: (_) => const AuthPage(),
   BottomPage.routeName: (_) => const BottomPage(),
   HomePage.routeName: (_) => const HomePage(),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../shared/widgets/_export_widgets.dart';
 
 class AuthPage extends StatelessWidget {
-  static String routeName = "/";
+  static String routeName = "/AuthPage";
 
   const AuthPage({Key? key}) : super(key: key);
 

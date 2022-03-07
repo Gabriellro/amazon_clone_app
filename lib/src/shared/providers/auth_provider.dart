@@ -1,11 +1,33 @@
 import 'dart:convert';
 
-import 'package:amazon_clone_app/src/shared/exceptions/auth_exceptions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../exceptions/_export_exceptions.dart';
 import '../utils/constants.dart';
 
 class AuthProvider with ChangeNotifier {
+  String? _token;
+  String? _email;
+  String? _uid;
+  DateTime? _expiryDate;
+
+  bool get isAuth {
+    final _isValid = _expiryDate?.isAfter(DateTime.now()) ?? false;
+    return _token != null && _isValid;
+  }
+
+  String? get token {
+    return isAuth ? _token : null;
+  }
+
+  String? get email {
+    return isAuth ? _email : null;
+  }
+
+  String? get uid {
+    return isAuth ? _uid : null;
+  }
+
   Future<void> _authenticate(
       String email, String password, String urlFragment) async {
     final url = '${Constants.authBaseUrl}$urlFragment?key=${Constants.apiKey}';
@@ -22,9 +44,14 @@ class AuthProvider with ChangeNotifier {
 
     if (body['error'] != null) {
       throw AuthException(body['error']['message']);
+    } else {
+      _token = body['idToken'];
+      _email = body['email'];
+      _uid = body['localId'];
+      _expiryDate =
+          DateTime.now().add(Duration(seconds: int.parse(body['expiresIn'])));
+      notifyListeners();
     }
-
-    print(body);
   }
 
   Future<void> singIn(String email, String password) async {
