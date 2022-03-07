@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -9,10 +11,12 @@ import '../models/_export_models.dart';
 import '../utils/constants.dart';
 
 class ProductProvider with ChangeNotifier {
-  late final List<ProductModel> _items = [];
+  final String _token;
+  List<ProductModel> _items = [];
+
+  ProductProvider(this._token, this._items);
 
   List<ProductModel> get items => [..._items];
-
   int get itemsCount => _items.length;
 
   Future<void> saveProduct(Map<String, Object> data) {
@@ -31,7 +35,8 @@ class ProductProvider with ChangeNotifier {
   Future<void> loadProducts() async {
     _items.clear();
 
-    final res = await http.get(Uri.parse('${Constants.productBaseUrl}.json'));
+    final res = await http
+        .get(Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'));
 
     if (res.body == 'null') return;
 
@@ -53,7 +58,7 @@ class ProductProvider with ChangeNotifier {
 
   Future<void> addProduct(ProductModel productModel) async {
     final response = await http.post(
-      Uri.parse('${Constants.productBaseUrl}.json'),
+      Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
       body: jsonEncode(
         {
           'name': productModel.name,
@@ -85,7 +90,8 @@ class ProductProvider with ChangeNotifier {
 
     if (i >= 0) {
       await http.patch(
-        Uri.parse('${Constants.productBaseUrl}/${productModel.id}.json'),
+        Uri.parse(
+            '${Constants.productBaseUrl}/${productModel.id}.json?auth=$_token'),
         body: json.encode(
           {
             'name': productModel.name,
@@ -106,13 +112,11 @@ class ProductProvider with ChangeNotifier {
 
     if (i >= 0) {
       await http.patch(
-        Uri.parse('${Constants.productBaseUrl}/${productModel.id}.json'),
-        body: json.encode(
-          {
-            'isFavorite': productModel.isFavorite,
-          },
-        ),
-      );
+          Uri.parse(
+              '${Constants.productBaseUrl}/${productModel.id}.json?auth=$_token'),
+          body: json.encode(
+            {'isFavorite': productModel.isFavorite},
+          ));
 
       _items[i] = productModel;
       notifyListeners();
@@ -128,7 +132,8 @@ class ProductProvider with ChangeNotifier {
       notifyListeners();
 
       final res = await http.delete(
-        Uri.parse('${Constants.productBaseUrl}/${productModel.id}.json'),
+        Uri.parse(
+            '${Constants.productBaseUrl}/${productModel.id}.json?auth=$_token'),
       );
       if (res.statusCode >= 400) {
         _items.insert(i, product);

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -8,21 +10,27 @@ import '../utils/constants.dart';
 import '_export_providers.dart';
 
 class OrderProvider with ChangeNotifier {
-  final List<OrderModel> _items = [];
+  final String _token;
+  List<OrderModel> _items = [];
+
+  OrderProvider(this._token, this._items);
 
   List<OrderModel> get items => [..._items];
 
   int get itemsCount => _items.length;
 
   Future<void> loadOrders() async {
-    _items.clear();
+    List<OrderModel> items = [];
 
-    final res = await http.get(Uri.parse('${Constants.orderBaseUrl}.json'));
+    items.clear();
+
+    final res = await http
+        .get(Uri.parse('${Constants.orderBaseUrl}.json?auth=$_token'));
 
     if (res.body == 'null') return;
     Map<String, dynamic> data = jsonDecode(res.body);
     data.forEach((key, value) {
-      _items.add(OrderModel(
+      items.add(OrderModel(
         id: key,
         date: DateTime.parse(value['date']),
         total: value['total'],
@@ -38,13 +46,14 @@ class OrderProvider with ChangeNotifier {
         }).toList(),
       ));
     });
+    _items = items.reversed.toList();
     notifyListeners();
   }
 
   Future<void> addOrder(CartProvider cart) async {
     final date = DateTime.now();
     final response = await http.post(
-      Uri.parse('${Constants.orderBaseUrl}.json'),
+      Uri.parse('${Constants.orderBaseUrl}.json?auth=$_token'),
       body: jsonEncode({
         'total': cart.totalAmount,
         'date': date.toIso8601String(),
