@@ -12,9 +12,10 @@ import '../utils/constants.dart';
 
 class ProductProvider with ChangeNotifier {
   final String _token;
+  final String _uid;
   List<ProductModel> _items = [];
 
-  ProductProvider(this._token, this._items);
+  ProductProvider([this._uid = '', this._token = '', this._items = const []]);
 
   List<ProductModel> get items => [..._items];
   int get itemsCount => _items.length;
@@ -35,13 +36,21 @@ class ProductProvider with ChangeNotifier {
   Future<void> loadProducts() async {
     _items.clear();
 
-    final res = await http
+    final response = await http
         .get(Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'));
 
-    if (res.body == 'null') return;
+    if (response.body == 'null') return;
 
-    Map<String, dynamic> data = jsonDecode(res.body);
+    final favResponse = await http.get(
+      Uri.parse('${Constants.userFavoritesBaseUrl}/$_uid.json?auth=$_token'),
+    );
+
+    Map<String, dynamic> favData =
+        favResponse.body == 'null' ? {} : jsonDecode(favResponse.body);
+
+    Map<String, dynamic> data = jsonDecode(response.body);
     data.forEach((productId, productData) {
+      final isFavorite = favData[productId] ?? false;
       _items.add(
         ProductModel(
           id: productId,
@@ -49,7 +58,7 @@ class ProductProvider with ChangeNotifier {
           description: productData['description'],
           price: productData['price'],
           imageUrl: productData['imageUrl'],
-          isFavorite: productData['isFavorite'],
+          isFavorite: isFavorite,
         ),
       );
     });
@@ -65,7 +74,6 @@ class ProductProvider with ChangeNotifier {
           'price': productModel.price,
           'description': productModel.description,
           'imageUrl': productModel.imageUrl,
-          'isFavorite': productModel.isFavorite,
         },
       ),
     );
@@ -79,7 +87,6 @@ class ProductProvider with ChangeNotifier {
         description: productModel.description,
         price: productModel.price,
         imageUrl: productModel.imageUrl,
-        isFavorite: productModel.isFavorite,
       ),
     );
     notifyListeners();
@@ -101,22 +108,6 @@ class ProductProvider with ChangeNotifier {
           },
         ),
       );
-
-      _items[i] = productModel;
-      notifyListeners();
-    }
-  }
-
-  Future<void> favoriteProduct(ProductModel productModel) async {
-    int i = _items.indexWhere((p) => p.id == productModel.id);
-
-    if (i >= 0) {
-      await http.patch(
-          Uri.parse(
-              '${Constants.productBaseUrl}/${productModel.id}.json?auth=$_token'),
-          body: json.encode(
-            {'isFavorite': productModel.isFavorite},
-          ));
 
       _items[i] = productModel;
       notifyListeners();

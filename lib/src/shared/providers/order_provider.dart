@@ -10,10 +10,11 @@ import '../utils/constants.dart';
 import '_export_providers.dart';
 
 class OrderProvider with ChangeNotifier {
+  final String _uid;
   final String _token;
   List<OrderModel> _items = [];
 
-  OrderProvider(this._token, this._items);
+  OrderProvider([this._uid = '', this._token = '', this._items = const []]);
 
   List<OrderModel> get items => [..._items];
 
@@ -25,7 +26,7 @@ class OrderProvider with ChangeNotifier {
     items.clear();
 
     final res = await http
-        .get(Uri.parse('${Constants.orderBaseUrl}.json?auth=$_token'));
+        .get(Uri.parse('${Constants.orderBaseUrl}/$_uid.json?auth=$_token'));
 
     if (res.body == 'null') return;
     Map<String, dynamic> data = jsonDecode(res.body);
@@ -53,7 +54,7 @@ class OrderProvider with ChangeNotifier {
   Future<void> addOrder(CartProvider cart) async {
     final date = DateTime.now();
     final response = await http.post(
-      Uri.parse('${Constants.orderBaseUrl}.json?auth=$_token'),
+      Uri.parse('${Constants.orderBaseUrl}/$_uid.json?auth=$_token'),
       body: jsonEncode({
         'total': cart.totalAmount,
         'date': date.toIso8601String(),
