@@ -14,18 +14,20 @@ class AppWidget extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProxyProvider<AuthProvider, ProductProvider>(
-          create: (_) => ProductProvider('', []),
+          create: (_) => ProductProvider(),
           update: (ctx, authProvider, previous) {
             return ProductProvider(
+              authProvider.uid ?? '',
               authProvider.token ?? '',
               previous?.items ?? [],
             );
           },
         ),
         ChangeNotifierProxyProvider<AuthProvider, OrderProvider>(
-          create: (_) => OrderProvider('', []),
+          create: (_) => OrderProvider(),
           update: (context, authProvider, previous) {
             return OrderProvider(
+              authProvider.uid ?? '',
               authProvider.token ?? '',
               previous?.items ?? [],
             );

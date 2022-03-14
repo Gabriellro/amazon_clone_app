@@ -183,6 +183,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                             ),
                             onPressed: () => productModel.updateFavorite(
                               authProvider.token ?? '',
+                              authProvider.uid ?? '',
                             ),
                             color: Theme.of(context).primaryColor,
                           ),
