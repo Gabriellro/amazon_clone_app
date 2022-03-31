@@ -1,9 +1,12 @@
 // ignore_for_file: unused_field
 
-import 'package:amazon_clone_app/src/modules/_export_modules.dart';
+import 'package:amazon_clone_app/src/modules/is_auth_page.dart';
+import 'package:amazon_clone_app/src/shared/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../shared/theme/app_colors.dart';
+import '_export_modules.dart';
 
 class BottomPage extends StatefulWidget {
   static String routeName = "/BottomPage";
@@ -62,27 +65,45 @@ class _BottomPageState extends State<BottomPage>
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                  color: Theme.of(context).cardColor,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.search_rounded,
-                        color: Colors.black,
-                      ),
-                      hintText: "Pesquisar na Amazon.com.br",
-                      border: InputBorder.none,
-                      hintStyle: Theme.of(context).textTheme.subtitle1,
-                      suffixIcon: const Icon(
-                        Icons.center_focus_weak_rounded,
-                        color: Colors.black26,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        color: Theme.of(context).cardColor,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.search_rounded,
+                              color: Colors.black,
+                            ),
+                            hintText: "Pesquisar na Amazon.com.br",
+                            border: InputBorder.none,
+                            hintStyle: Theme.of(context).textTheme.subtitle1,
+                            suffixIcon: const Icon(
+                              Icons.center_focus_weak_rounded,
+                              color: Colors.black26,
+                            ),
+                          ),
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
                       ),
                     ),
-                    style: Theme.of(context).textTheme.subtitle1,
                   ),
-                ),
+                  Visibility(
+                    visible: _selectindex == 1,
+                    child: IconButton(
+                      icon: const Icon(Icons.logout_rounded),
+                      onPressed: () {
+                        Provider.of<AuthProvider>(context, listen: false)
+                            .logout();
+                        Navigator.of(context)
+                            .pushReplacementNamed(IsAuthPage.routeName);
+                      },
+                    ),
+                  )
+                ],
               ),
             ),
           ),
