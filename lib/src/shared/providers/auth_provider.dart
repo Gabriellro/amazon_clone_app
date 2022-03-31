@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../exceptions/_export_exceptions.dart';
@@ -10,6 +10,7 @@ class AuthProvider with ChangeNotifier {
   String? _email;
   String? _uid;
   DateTime? _expiryDate;
+  Timer? _logoutTimer;
 
   bool get isAuth {
     final _isValid = _expiryDate?.isAfter(DateTime.now()) ?? false;
@@ -48,8 +49,10 @@ class AuthProvider with ChangeNotifier {
       _token = body['idToken'];
       _email = body['email'];
       _uid = body['localId'];
-      _expiryDate =
-          DateTime.now().add(Duration(seconds: int.parse(body['expiresIn'])));
+      _expiryDate = DateTime.now().add(
+        Duration(seconds: int.parse(body['expiresIn'])),
+      );
+      _autoLogout();
       notifyListeners();
     }
   }
@@ -60,5 +63,27 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> singUp(String email, String password) async {
     return _authenticate(email, password, 'signUp');
+  }
+
+  void logout() {
+    _token = null;
+    _email = null;
+    _uid = null;
+    _expiryDate = null;
+    notifyListeners();
+  }
+
+  void _clearLogoutTimer() {
+    _logoutTimer?.cancel();
+    _logoutTimer = null;
+  }
+
+  void _autoLogout() {
+    _clearLogoutTimer();
+    final timeToLogout = _expiryDate?.difference(DateTime.now()).inSeconds;
+    _logoutTimer = Timer(
+      Duration(seconds: timeToLogout ?? 0),
+      logout,
+    );
   }
 }
