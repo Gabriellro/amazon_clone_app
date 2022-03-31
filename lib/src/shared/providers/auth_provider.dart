@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../exceptions/_export_exceptions.dart';
+import '../repositories/_export_repositories.dart';
 import '../utils/constants.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -52,6 +53,17 @@ class AuthProvider with ChangeNotifier {
       _expiryDate = DateTime.now().add(
         Duration(seconds: int.parse(body['expiresIn'])),
       );
+
+      SPRepository.saveMap(
+        'userData',
+        {
+          'token': _token,
+          'email': _email,
+          'uid': _uid,
+          'expiryDate': _expiryDate!.toIso8601String(),
+        },
+      );
+
       _autoLogout();
       notifyListeners();
     }
@@ -65,12 +77,32 @@ class AuthProvider with ChangeNotifier {
     return _authenticate(email, password, 'signUp');
   }
 
+  Future<void> tryAutoLogin() async {
+    if (isAuth) return;
+
+    final userData = await SPRepository.getMap('userData');
+    if (userData.isEmpty) return;
+
+    final expiryDate = DateTime.parse(userData['expiryDate']);
+    if (expiryDate.isBefore(DateTime.now())) return;
+
+    _token = userData['token'];
+    _email = userData['email'];
+    _uid = userData['uid'];
+    _expiryDate = expiryDate;
+
+    _autoLogout();
+    notifyListeners();
+  }
+
   void logout() {
     _token = null;
     _email = null;
     _uid = null;
     _expiryDate = null;
-    notifyListeners();
+
+    _clearLogoutTimer();
+    SPRepository.remove('userData').then((_) => notifyListeners());
   }
 
   void _clearLogoutTimer() {
@@ -81,9 +113,6 @@ class AuthProvider with ChangeNotifier {
   void _autoLogout() {
     _clearLogoutTimer();
     final timeToLogout = _expiryDate?.difference(DateTime.now()).inSeconds;
-    _logoutTimer = Timer(
-      Duration(seconds: timeToLogout ?? 0),
-      logout,
-    );
+    _logoutTimer = Timer(Duration(seconds: timeToLogout ?? 0), logout);
   }
 }
