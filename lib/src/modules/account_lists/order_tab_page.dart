@@ -41,9 +41,10 @@ class _OrderTabPageState extends State<OrderTabPage> {
                               ),
                               hintText: "Pesquisar todos os pedidos",
                               border: InputBorder.none,
-                              hintStyle: Theme.of(context).textTheme.subtitle1,
+                              hintStyle:
+                                  Theme.of(context).textTheme.titleMedium,
                             ),
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -62,7 +63,7 @@ class _OrderTabPageState extends State<OrderTabPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("ultimos 6 meses",
-                style: Theme.of(context).textTheme.subtitle1),
+                style: Theme.of(context).textTheme.titleMedium),
           ),
           Container(
             color: Colors.white,

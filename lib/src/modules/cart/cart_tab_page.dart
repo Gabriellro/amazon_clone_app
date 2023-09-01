@@ -31,7 +31,7 @@ class _CartTabPageState extends State<CartTabPage> {
               ),
               Text(
                 "Enviar para Gabriel – Contagem 32340-030",
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               const Icon(
                 Icons.keyboard_arrow_down,
@@ -52,7 +52,7 @@ class _CartTabPageState extends State<CartTabPage> {
                           children: [
                             Text(
                               'SubTotal ',
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class _CartTabPageState extends State<CartTabPage> {
                                   ' R\$ ',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .caption
+                                      .bodySmall
                                       ?.copyWith(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
@@ -72,7 +72,7 @@ class _CartTabPageState extends State<CartTabPage> {
                                       .toString(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline5
+                                      .headlineSmall
                                       ?.copyWith(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
@@ -103,7 +103,7 @@ class _CartTabPageState extends State<CartTabPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 "Fechar pedido ( ${cart.itemsCount} item)",
-                                style: Theme.of(context).textTheme.button,
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
                             ),
                           ),
@@ -131,7 +131,7 @@ class _CartTabPageState extends State<CartTabPage> {
                 child: Center(
                   child: Text(
                     'Seu carrinho da Amazon está vazio! :(',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
               ),
@@ -146,7 +146,7 @@ class _CartTabPageState extends State<CartTabPage> {
                 child: Center(
                   child: Text(
                     'Seu carrinho da Amazon está vazio! :(',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
               ),

@@ -15,7 +15,7 @@ class CartItem extends StatelessWidget {
       background: Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
-          color: Theme.of(context).errorColor,
+          color: Theme.of(context).colorScheme.error,
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 16),
@@ -23,7 +23,7 @@ class CartItem extends StatelessWidget {
             "Excluir",
             style: Theme.of(context)
                 .textTheme
-                .bodyText1
+                .bodyLarge
                 ?.copyWith(color: Colors.white),
           ),
         ),
@@ -68,18 +68,18 @@ class CartItem extends StatelessWidget {
                       child: Text(
                         cartItemModel.name,
                         maxLines: 2,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
                     const SizedBox(height: 5),
                     Text(
                       "por autor",
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 5),
                     Text(
                       "capa commun",
-                      style: Theme.of(context).textTheme.caption,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 5),
                     Row(
@@ -87,7 +87,7 @@ class CartItem extends StatelessWidget {
                       children: [
                         Text(
                           "R\$",
-                          style: Theme.of(context).textTheme.caption,
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
                           (cartItemModel.price * cartItemModel.quantity)
@@ -95,7 +95,7 @@ class CartItem extends StatelessWidget {
                               .toString(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline5
+                              .headlineSmall
                               ?.copyWith(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -107,7 +107,7 @@ class CartItem extends StatelessWidget {
                       "Em estoque",
                       style: Theme.of(context)
                           .textTheme
-                          .overline
+                          .labelSmall
                           ?.copyWith(color: Theme.of(context).primaryColor),
                     ),
                   ],

@@ -71,7 +71,7 @@ class ProductItem extends StatelessWidget {
               },
               icon: Icon(
                 Icons.delete_rounded,
-                color: Theme.of(context).errorColor,
+                color: Theme.of(context).colorScheme.error,
               ),
             )
           ],

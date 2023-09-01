@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Text(
                     "Enviar para Gabriel – Contagem 32340-030",
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down,
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                                 "Continue comprando",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle1!
+                                    .titleMedium!
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                                   "Renove sua Casa",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .subtitle2!
+                                      .titleSmall!
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text(
                     "Livros que você pode gostar",
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   _isLoading
                       ? const Center(

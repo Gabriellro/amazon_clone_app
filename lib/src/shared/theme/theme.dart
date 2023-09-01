@@ -19,7 +19,6 @@ abstract class AppTheme {
     return ThemeData(
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: LightColors.background,
-      backgroundColor: LightColors.background,
       iconTheme: const IconThemeData(color: LightColors.iconLight),
       textTheme: customTextThemeLight(),
       cardColor: LightColors.card,
@@ -30,7 +29,7 @@ abstract class AppTheme {
         secondary: AppColors.secondary,
         tertiary: AppColors.tertiary,
         brightness: Brightness.light,
-      ),
+      ).copyWith(background: LightColors.background),
     );
   }
 
@@ -42,7 +41,6 @@ abstract class AppTheme {
       iconTheme: const IconThemeData(color: DarkColors.iconDark),
       brightness: Brightness.dark,
       textTheme: customTextThemeDark(),
-      backgroundColor: DarkColors.background,
       cardColor: DarkColors.card,
     );
   }

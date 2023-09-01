@@ -61,7 +61,7 @@ class _AccountListsPageState extends State<AccountListsPage>
                         labelColor: Theme.of(context).primaryColor,
                         labelStyle: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                         unselectedLabelColor: Colors.black,
                         indicatorSize: TabBarIndicatorSize.label,

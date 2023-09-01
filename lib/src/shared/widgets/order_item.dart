@@ -64,12 +64,12 @@ class _OrderItemState extends State<OrderItem> {
                               child: Text(
                                 product.name,
                                 maxLines: 3,
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
                             Text(
                               '${product.quantity}x R\$ ${product.price}',
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: Theme.of(context).textTheme.titleMedium,
                             )
                           ],
                         ),

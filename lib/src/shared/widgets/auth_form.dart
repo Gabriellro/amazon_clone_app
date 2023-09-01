@@ -102,7 +102,7 @@ class _AuthFormState extends State<AuthForm> {
             _isSingIn() ? "Fazer login" : "Criar conta",
             style: Theme.of(context)
                 .textTheme
-                .headline4
+                .headlineMedium
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
           Column(
@@ -181,7 +181,7 @@ class _AuthFormState extends State<AuthForm> {
                                 : "Registrar",
                             style: Theme.of(context)
                                 .textTheme
-                                .button
+                                .labelLarge
                                 ?.copyWith(color: Colors.white),
                           ),
                         ),
@@ -223,7 +223,7 @@ class _AuthFormState extends State<AuthForm> {
                       _isSingIn() ? "Criar sua conta da Amazon" : "Fazer login",
                       style: Theme.of(context)
                           .textTheme
-                          .button
+                          .labelLarge
                           ?.copyWith(color: Colors.white),
                     ),
                   ),

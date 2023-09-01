@@ -60,13 +60,13 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                           ),
                           hintText: productModel.name,
                           border: InputBorder.none,
-                          hintStyle: Theme.of(context).textTheme.subtitle1,
+                          hintStyle: Theme.of(context).textTheme.titleMedium,
                           suffixIcon: const Icon(
                             Icons.center_focus_weak_rounded,
                             color: Colors.black26,
                           ),
                         ),
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ),
@@ -92,7 +92,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                   ),
                   Text(
                     "Enviar para Gabriel – Contagem 32340-030",
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down,
@@ -113,20 +113,20 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                 children: [
                   Text(
                     "Tatsuki Fujimoto",
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     productModel.name,
-                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     "Edição Português",
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -155,7 +155,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                         "(1.563)",
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2
+                            .bodyMedium
                             ?.copyWith(color: Theme.of(context).primaryColor),
                       ),
                     ],
@@ -203,7 +203,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                   const SizedBox(height: 8),
                   Text(
                     'R\$ ${productModel.price.toStringAsFixed(2).toString()}',
-                    style: Theme.of(context).textTheme.headline5?.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -215,7 +215,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                       ),
                       Text(
                         "Enviar para Gabriel – Contagem 32340-030",
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -252,7 +252,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "Adiconar ao carrinho",
-                            style: Theme.of(context).textTheme.button,
+                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       ),
@@ -268,7 +268,7 @@ class _ProductDatailPageState extends State<ProductDatailPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "Comprar agora",
-                            style: Theme.of(context).textTheme.button,
+                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       ),

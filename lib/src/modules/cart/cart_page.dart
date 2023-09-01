@@ -72,7 +72,7 @@ class _CartPageState extends State<CartPage>
                       child: TabBar(
                         controller: _tabController,
                         labelColor: Colors.black,
-                        labelStyle: Theme.of(context).textTheme.subtitle1,
+                        labelStyle: Theme.of(context).textTheme.titleMedium,
                         unselectedLabelColor: Colors.black,
                         indicatorSize: TabBarIndicatorSize.label,
                         indicatorWeight: 3,
